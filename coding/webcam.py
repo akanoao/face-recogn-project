@@ -66,6 +66,8 @@ class facrecognition():
                         name = known_face_names[best_match_index]
 
                     self.face_names.append(name)
+                    video_capture.release()
+                    cv2.destroyAllWindows()
                     return self.face_names
             process_this_frame = not process_this_frame
 

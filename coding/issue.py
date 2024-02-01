@@ -64,3 +64,5 @@ class issue():
         self.name["state"] = 'normal'
         self.name.insert('1.0', face)
         self.name["state"] = 'disabled'
+
+    def addtodatabase(self):
