@@ -24,21 +24,4 @@ class scanner():
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 self.cap.release()
 
-   # def issue(self):
-    #    for code in decode(self.image):
-     #       data = code.data.decode('utf-8')
-      ##      time.sleep(5)
-        #    try:
-         #       mydb = sql.connect(host='localhost', user='root', password='anurag11')
-          #      mycursor = mydb.cursor()
-           #     mycursor.execute('use project')
-            #    mycursor.execute('select * from issue where book_id = ("{}")'.format(data))
-             #   info = mycursor.fetchall()
-              #  if (len(info) == 0):
-               #     date = datetime.today().strftime('%Y-%m-%d')
-                #    mycursor.execute('insert into issue values ("{}", "{}", "anuj")'.format(date, data))
-                #mydb.commit()
-                #mydb.close()
-            #except:
-             #   showerror("error", "error")
 

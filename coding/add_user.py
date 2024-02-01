@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
-import mysql.connector as sql
+import sqlite3
 import tkcalendar as tkc
 
 class add_user():
@@ -49,9 +49,8 @@ class add_user():
         user = self.user.get()
         password = self.password.get()
         try:
-            mydb = sql.connect(host='localhost', user='root', password='anurag11')
+            mydb = sqlite3.connect('database.sqlite')
             mycursor = mydb.cursor()
-            mycursor.execute('use project')
             mycursor.execute('select * from login where id = ("{}")'.format(ide))
             info = mycursor.fetchall()
             if(len(info) > 0):
