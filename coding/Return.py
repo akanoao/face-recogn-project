@@ -74,10 +74,11 @@ class Return():
             mydb = sqlite3.connect('database.sqlite')
             mycursor = mydb.cursor()
             mycursor.execute('select * from issued_books where book_id = ("{}")'.format(bookid))
-            info = mycursor.fetchall()
+            info = mycursor.fetchone()
+            print(info)
             date = datetime.today().strftime('%Y-%m-%d')
             if(len(info) > 0):
-                mycursor.execute('insert into returned_books values("{}", "{}", "{}")'.format(bookid, name, date))
+                mycursor.execute('insert into returned_books values("{}", "{}", "{}")'.format(name,bookid,  date))
                 mycursor.execute('delete from issued_books where book_id = ("{}")'.format(bookid))
             elif(len(info) == 0):
                     showerror("error", "book not issued")
