@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
-import mysql.connector as sql
 import sqlite3
 
 
@@ -44,23 +43,23 @@ class gui_main():
     def check(self):
         username = self.username.get()
         password = self.password.get()
-        try:
-            mydb = sql.connect('')
-            mycursor = mydb.cursor()
-            mycursor.execute('select * from login where id = ("{}")'.format(username))
-            info = mycursor.fetchall()
-            if(len(info) == 0):
-                showerror("error", "id not found")
-            elif(len(info) > 0):
-                if(info[0][1] == password):
-                    from options import options
-                    self.root.destroy()
-                    options.window(self)
-                else:
-                    showerror("error", "password is wrong")
+        #try:
+        mydb = sqlite3.connect('database.sqlite')
+        mycursor = mydb.cursor()
+        mycursor.execute('select * from login where id = ("{}")'.format(username))
+        info = mycursor.fetchall()
+        if(len(info) == 0):
+            showerror("error", "id not found")
+        elif(len(info) > 0):
+            if(info[0][1] == password):
+                from options import options
+                self.root.destroy()
+                options.window(self)
+            else:
+                showerror("error", "password is wrong")
 
-        except:
-            showerror("error", "error")
+        #except:
+            #showerror("error", "error")
 
 
 
