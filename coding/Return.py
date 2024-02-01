@@ -29,7 +29,7 @@ class Return():
         self.name.grid(column=1, row=0, sticky=tk.W, padx=5, pady=10)
         self.name["state"] = 'disabled'
 
-        name_button = ttk.Button(root_return, text="Scan")
+        name_button = ttk.Button(root_return, text="Scan", command=lambda: [Return.facescan(self)])
         name_button.grid(column=2, row=0, sticky=tk.W, padx=5, pady=10)
 
         id_label = ttk.Label(root_return, text="Book ID: ")
@@ -39,7 +39,7 @@ class Return():
         self.id.grid(column=1, row=1, sticky=tk.W, padx=5, pady=10)
         self.id["state"] = 'disabled'
 
-        id_button = ttk.Button(root_return, text="Scan", command=lambda: [Return.namescan(self)])
+        id_button = ttk.Button(root_return, text="Scan", command=lambda: [Return.idscan(self)])
         id_button.grid(column=2, row=1, sticky=tk.W, padx=5, pady=10)
 
         ok_button = ttk.Button(root_return, text="Ok")
@@ -56,3 +56,11 @@ class Return():
         self.id["state"] = 'normal'
         self.id.insert('1.0', data)
         self.id["state"] = 'disabled'
+
+    def facescan(self):
+        from webcam import face_recognition
+        faces = face_recognition.facerecognition(self)
+        face = faces[0]
+        self.name["state"] = 'normal'
+        self.name.insert('1.0', face)
+        self.name["state"] = 'disabled'
