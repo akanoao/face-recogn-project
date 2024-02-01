@@ -2,7 +2,7 @@ import face_recognition
 from PIL import Image
 
 #loading the image
-image = face_recognition.load_image_file("WhatsApp Image 2024-01-29 at 00.31.34 (2).jpeg") 
+image = face_recognition.load_image_file("WhatsApp Image 2024-01-29 at 00.31.34 (1).jpeg") 
 face_locations = face_recognition.face_locations(image)
 
 # print(face_locations)
