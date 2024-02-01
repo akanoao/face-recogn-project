@@ -26,8 +26,9 @@ class issue():
 
         self.id = tk.Text(root_issue, height = 1, width= 20)
         self.id.grid(column=1, row=1, sticky=tk.W, padx=5, pady=10)
+        self.id["state"] = 'disabled'
 
-        id_button = ttk.Button(root_issue, text="Scan", command=lambda: [self.id.insert('1.0', issue.namescan(self))])
+        id_button = ttk.Button(root_issue, text="Scan", command=lambda: [issue.namescan(self)])
         id_button.grid(column=2, row=1, sticky=tk.W, padx=5, pady=10)
 
         ok_button = ttk.Button(root_issue, text="Ok")
@@ -36,11 +37,11 @@ class issue():
         from issue_return import issuereturn
         back_button = ttk.Button(root_issue, text="back", command=lambda: [root_issue.destroy(), issuereturn.window(self)])
         back_button.grid(column=0, row=2, sticky=tk.W, padx=5, pady=10)
-
         root_issue.mainloop()
 
     def namescan(self):
         from main import scanner
         data = scanner.scan_issue(self)
-        print(data)
-        return data
+        self.id["state"] = 'normal'
+        self.id.insert('1.0', data)
+        self.id["state"] = 'disabled'
