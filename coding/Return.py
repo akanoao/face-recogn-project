@@ -77,7 +77,7 @@ class Return():
             info = mycursor.fetchall()
             date = datetime.today().strftime('%Y-%m-%d')
             if(len(info) > 0):
-                mycursor.execute('inert into returned_books values("{}", "{}", "{}")'.format(bookid, name, date))
+                mycursor.execute('insert into returned_books values("{}", "{}", "{}")'.format(bookid, name, date))
                 mycursor.execute('delete from issued_books where book_id = ("{}")'.format(bookid))
             elif(len(info) == 0):
                     showerror("error", "book not issued")
