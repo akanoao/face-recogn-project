@@ -20,6 +20,7 @@ class scanner():
             for code in decode(self.image):
                 self.data = code.data.decode('utf-8')
                 self.cap.release()
+                cv2.destroyAllWindows()
                 return self.data
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 self.cap.release()
