@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
 import mysql.connector as sql
+import sqlite3
 
 
 class gui_main():
@@ -22,8 +23,8 @@ class gui_main():
         feilds = {}
 
         self.username = tk.StringVar()
-        feilds["username_label"] = ttk.Label(self.root, text = "ID: ")
-        feilds["username_entry"] = ttk.Entry(self.root, textvariable=self.username)
+        feilds["ID_label"] = ttk.Label(self.root, text = "ID: ")
+        feilds["ID_entry"] = ttk.Entry(self.root, textvariable=self.username)
 
         self.password = tk.StringVar()
         feilds["password_label"] = ttk.Label(self.root, text = "password: ")
@@ -44,9 +45,8 @@ class gui_main():
         username = self.username.get()
         password = self.password.get()
         try:
-            mydb = sql.connect(host='localhost', user='root', password='anurag11')
+            mydb = sql.connect('')
             mycursor = mydb.cursor()
-            mycursor.execute('use project')
             mycursor.execute('select * from login where id = ("{}")'.format(username))
             info = mycursor.fetchall()
             if(len(info) == 0):

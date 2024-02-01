@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
+import sqlite3
 import mysql.connector as sql
 
 class options():
@@ -22,7 +23,7 @@ class options():
         libbutton = ttk.Button(root_opt, text='library', command=lambda: [root_opt.destroy(),issuereturn.window(self)])
         libbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
-        facebutton = ttk.Button(root_opt, text='face recognition', command=lambda: [])
+        facebutton = ttk.Button(root_opt, text='attendance', command=lambda: [])
         facebutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
         root_opt.mainloop()
