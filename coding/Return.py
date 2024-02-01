@@ -6,7 +6,7 @@ import mysql.connector as sql
 class Return():
     def window(self):
         root_return = tk.Tk()
-        root_return.title("issue")
+        root_return.title("return")
         window_width = 300
         window_height = 130
 

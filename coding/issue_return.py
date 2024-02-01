@@ -21,8 +21,8 @@ class issuereturn():
         from issue import issue
         issubutton = ttk.Button(root_issret, text='issue', command=lambda: [root_issret.destroy(), issue.window(self)])
         issubutton.pack(padx=10, pady=5, anchor=tk.CENTER)
-
-        retbutton = ttk.Button(root_issret, text='return', command=lambda: [])
+        from Return import Return
+        retbutton = ttk.Button(root_issret, text='return', command=lambda: [root_issret.destroy(), Return.window(self)])
         retbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
         from options import options
