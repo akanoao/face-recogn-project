@@ -6,8 +6,17 @@ import mysql.connector as sql
 class issuereturn():
     def window(self):
         root_issret = tk.Tk()
-        root_issret.title("issue and return")
-        root_issret.geometry('200x200')
+        root_issret.title("issue/return")
+        window_width = 300
+        window_height = 130
+
+        screen_width = root_issret.winfo_screenwidth()
+        screen_height = root_issret.winfo_screenheight()
+
+        center_x = int(screen_width / 2 - window_width / 2)
+        center_y = int(screen_height / 2 - window_height / 2)
+
+        root_issret.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
         from issue import issue
         issubutton = ttk.Button(root_issret, text='issue', command=lambda: [root_issret.destroy(), issue.window(self)])
