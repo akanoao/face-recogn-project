@@ -94,7 +94,7 @@ while True:
 
     # Display the resulting image
     cv2.imshow('Video', frame)
-    cv2.waitKey(1)
+    # cv2.waitKey(1)
     # Hit 'q' on the keyboard to quit!
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
