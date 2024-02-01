@@ -1,7 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
-import mysql.connector as sql
+import sqlite3
+from datetime import datetime
 
 class Return():
     def window(self):
@@ -64,3 +65,22 @@ class Return():
         self.name["state"] = 'normal'
         self.name.insert('1.0', face)
         self.name["state"] = 'disabled'
+
+    def addtodatabase(self):
+        bookid = self.id.get('1.0','end')
+        name = self.name.get('1.0','end')
+        try:
+            mydb = sqlite3.connect('database.sqlite')
+            mycursor = mydb.cursor()
+            mycursor.execute('select * from issued_books where book_id = ("{}")'.format(bookid))
+            info = mycursor.fetchall()
+            date = datetime.today().strftime('%Y-%m-%d')
+            if(len(info) > 0):
+                mycursor.execute('inert into returned_books values("{}", "{}", "{}")'.format(bookid, name, date))
+                mycursor.execute('delete from issued_books where book_id = ("{}")'.format(bookid))
+            elif(len(info) == 0):
+                    showerror("error", "book not issued")
+            mydb.commit()
+            mydb.close()
+        except:
+            showerror("error", "error")
