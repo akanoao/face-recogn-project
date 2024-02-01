@@ -58,8 +58,8 @@ class Return():
         self.id["state"] = 'disabled'
 
     def facescan(self):
-        from webcam import face_recognition
-        faces = face_recognition.facerecognition(self)
+        from webcam import facrecognition
+        faces = facrecognition.facerecognition(self)
         face = faces[0]
         self.name["state"] = 'normal'
         self.name.insert('1.0', face)
