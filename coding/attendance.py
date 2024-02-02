@@ -1,6 +1,7 @@
 import face_recognition
 import cv2
 import numpy as np
+import time
 
 # This is a demo of running face recognition on live video from your webcam. It's a little more complicated than the
 # other example, but it includes some basic performance tweaks to make things run a lot faster:
@@ -39,8 +40,22 @@ face_locat = []
 face_encodings = []
 face_nam = []
 process_this_frame = True
+intial_time = time.time()
+DURATION = 100 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
+DETECTION_TIME = 20
+HALF_TIME = (DURATION//2)+DETECTION_TIME
+DELAY_TIME = (int(DURATION//2)-DETECTION_TIME)*1000
 
 while True:
+    if round(time.time()-intial_time) in [DETECTION_TIME,HALF_TIME]:
+        video_capture.release()
+        cv2.destroyAllWindows()
+        cv2.waitKey(DELAY_TIME)
+        video_capture = cv2.VideoCapture(0)
+
+    if round(time.time()-intial_time) == (DURATION+DETECTION_TIME):
+        break
+
     # Grab a single frame of video
     ret, frame = video_capture.read()
 
@@ -51,7 +66,7 @@ while True:
 
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         rgb_small_frame = small_frame[:, :, ::-1]
-        
+
         # Find all the faces and face encodings in the current frame of video
         face_locations = face_recognition.face_locations(rgb_small_frame)
         face_encodings = face_recognition.face_encodings(rgb_small_frame, face_locations)
@@ -59,7 +74,7 @@ while True:
         face_names = []
         for face_encoding in face_encodings:
             # See if the face is a match for the known face(s)
-            matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.5)
+            matches = face_recognition.compare_faces(known_face_encodings, face_encoding, tolerance=0.58)
             name = "Unknown"
 
             # Or instead, use the known face with the smallest distance to the new face
@@ -98,7 +113,7 @@ while True:
         break
 print(known_face_counters)
 print(detect)
-print(round((detect/len(known_face_counters))*0.07))
+# print(round((detect/len(known_face_counters))*0.07))
 # Release handle to the webcam
 video_capture.release()
 cv2.destroyAllWindows()
