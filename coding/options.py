@@ -27,4 +27,7 @@ class options():
         facebutton = ttk.Button(root_opt, text='attendance', command=lambda: [root_opt.destroy(), attendance.window(self)])
         facebutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
+        secbutton = ttk.Button(root_opt, text='security', command=lambda: [])
+        secbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
+
         root_opt.mainloop()
