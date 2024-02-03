@@ -163,3 +163,5 @@ for i in known_face_names:
             """INSERT INTO attendance VALUES(?,?,?,?)""",
             (i, "0", start_time, end_time),
         )
+conn.commit()
+conn.close()
