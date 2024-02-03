@@ -2,7 +2,7 @@ import face_recognition
 from PIL import Image
 
 # known image
-my_pic = face_recognition.load_image_file("daksh.jpg")
+my_pic = face_recognition.load_image_file("../images/daksh.jpg")
 my_pic_encoding = face_recognition.face_encodings(my_pic)[0]
 
 # unknown image

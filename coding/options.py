@@ -23,7 +23,8 @@ class options():
         libbutton = ttk.Button(root_opt, text='library', command=lambda: [root_opt.destroy(),issuereturn.window(self)])
         libbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
-        facebutton = ttk.Button(root_opt, text='attendance', command=lambda: [])
+        from attendance import attendance
+        facebutton = ttk.Button(root_opt, text='attendance', command=lambda: [root_opt.destroy(), attendance.window(self)])
         facebutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
         root_opt.mainloop()
