@@ -1,16 +1,8 @@
+import sqlite3
+import time
 import face_recognition
 import cv2
 import numpy as np
-import time
-import sqlite3
-# This is a demo of running face recognition on live video from your webcam. It's a little more complicated than the
-# other example, but it includes some basic performance tweaks to make things run a lot faster:
-#   1. Process each video frame at 1/4 resolution (though still display it at full resolution)
-#   2. Only detect faces in every other frame of video.
-
-# PLEASE : This example requires OpenCV (the `cv2` library) to be installed only to read from your webcam.
-# OpenCV is *not* required to use the face_recognition library. It's only required if you want to run this
-# specific demo. If you have trouble installing it, try any of the other demos that don't require it instead.
 
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
@@ -33,18 +25,20 @@ known_face_names = [
     "daksh",
     "harsh"
 ]
-known_face_counters = {}
-detect = 0
+
 # Initialize some variables
+known_face_counters = {}
+# detect = 0
+attendance_dict = {}
 face_locat = []
 face_encodings = []
 face_nam = []
 process_this_frame = True
 intial_time = time.time()
-DURATION = 100 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
-DETECTION_TIME = 20
+DURATION = 30 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
+DETECTION_TIME = 5
 HALF_TIME = (DURATION//2)+DETECTION_TIME
-DELAY_TIME = (int(DURATION//2)-DETECTION_TIME)*1000
+DELAY_TIME = (int(DURATION//2)-DETECTION_TIME)*1000 # 5 10 5 10 5
 
 while True:
     if round(time.time()-intial_time) in [DETECTION_TIME,HALF_TIME]:
@@ -86,7 +80,7 @@ while True:
             if matches[best_match_index]:
                 name = known_face_names[best_match_index]
                 known_face_counters[name] = known_face_counters.get(name, 0) + 1
-                detect+=1
+                # detect+=1
             face_names.append(name)
         # face_nam.append(face_names)
     process_this_frame = not process_this_frame
@@ -114,7 +108,7 @@ while True:
     # Hit 'q' on the keyboard to quit!
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-print(known_face_counters)
+# print(known_face_counters)
 print(face_nam)
 print(detect)
 # print(round((detect/len(known_face_counters))*0.07))
@@ -122,8 +116,18 @@ print(detect)
 video_capture.release()
 cv2.destroyAllWindows()
 
+for j in range(len(face_nam)):
+    for i in face_nam[j].keys():
+        if i in face_nam[(j+1)%3] and face_nam[(j+2)%3]:
+            attendance_dict[i] = 1
+        else:
+            attendance_dict[i] = 0
+
+print(attendance_dict)
+
+
 # name status date time
-conn = sqlite3.connect("spotify_data.sqlite")
+conn = sqlite3.connect("database.sqlite")
 cur = conn.cursor()
 
 cur.executescript(
@@ -135,6 +139,8 @@ CREATE TABLE IF NOT EXISTS "attendance" (
 )
 """
 )
-for i in face_nam:
-    if i.keys() == face_nam[i+1] == face_nam[i+2]:
-        print(i.keys())
+# for i in known_face_names:
+#         cur.execute(
+#             """INSERT OR IGNORE INTO attendance VALUES(?,?,?,?)""",
+#             (song_names[i], artist_names[i], played_at_list[i], timestamps[i]),
+#         )
