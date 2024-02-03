@@ -32,7 +32,7 @@ class gui_main():
         for feild in feilds.values():
             feild.pack(anchor = tk.W, fill = tk.X, padx = 5, pady = 10)
 
-        login_button = ttk.Button(text = "login", command=lambda: [gui_main.check(self), self.root.destroy()])
+        login_button = ttk.Button(text = "login", command=lambda: [gui_main.check(self)])
         login_button.pack(side = tk.RIGHT, padx = 5, pady = 10)
 
         from add_user import add_user
@@ -48,6 +48,7 @@ class gui_main():
             mycursor = mydb.cursor()
             mycursor.execute('select * from login where id = ("{}")'.format(username))
             info = mycursor.fetchall()
+            print(info)
             if(len(info) == 0):
                 showerror("error", "id not found")
             elif(len(info) > 0):

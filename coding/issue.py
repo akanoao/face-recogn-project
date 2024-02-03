@@ -70,17 +70,17 @@ class issue():
     def addtodatabase(self):
         bookid = self.id.get('1.0','end')
         name = self.name.get('1.0','end')
-        #try:
-        mydb = sqlite3.connect('database.sqlite')
-        mycursor = mydb.cursor()
-        mycursor.execute('select * from issued_books where book_id = ("{}")'.format(bookid))
-        info = mycursor.fetchall()
-        date = datetime.today().strftime('%Y-%m-%d')
-        if(len(info) == 0):
-            mycursor.execute('insert into issued_books values("{}", "{}", "{}")'.format(name, bookid,  date))
-        elif(len(info) > 0):
-                showerror("error", "book already issued")
-        mydb.commit()
-        mydb.close()
-        #except:
-            #showerror("error", "error")
+        try:
+            mydb = sqlite3.connect('database.sqlite')
+            mycursor = mydb.cursor()
+            mycursor.execute('select * from issued_books where book_id = ("{}")'.format(bookid))
+            info = mycursor.fetchall()
+            date = datetime.today().strftime('%Y-%m-%d')
+            if(len(info) == 0):
+                mycursor.execute('insert into issued_books values("{}", "{}", "{}")'.format(name, bookid,  date))
+            elif(len(info) > 0):
+                    showerror("error", "book already issued")
+            mydb.commit()
+            mydb.close()
+        except:
+            showerror("error", "error")

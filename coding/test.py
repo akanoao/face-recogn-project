@@ -15,7 +15,7 @@ class facrecognition():
         d_face_encoding = face_recognition.face_encodings(d_image)[0]
 
         # Load a second sample picture and learn how to recognize it.
-        h_image = face_recognition.load_image_file("harsh.jpg")
+        h_image = face_recognition.load_image_file("../images/harsh.jpg")
         h_face_encoding = face_recognition.face_encodings(h_image)[0]
 
         # Create arrays of known face encodings and their names
