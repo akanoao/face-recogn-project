@@ -8,7 +8,7 @@ import sqlite3
 class show():
     def window(self):
         root_att = tk.Tk()
-        root_att.title("attendance")
+        root_att.title("show")
         window_width = 600
         window_height = 200
 
