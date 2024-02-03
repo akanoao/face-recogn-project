@@ -51,9 +51,12 @@ while True:
         video_capture.release()
         cv2.destroyAllWindows()
         cv2.waitKey(DELAY_TIME)
+        face_nam.append(known_face_counters)
+        known_face_counters = {}
         video_capture = cv2.VideoCapture(0)
 
     if round(time.time()-intial_time) == (DURATION+DETECTION_TIME):
+        face_nam.append(known_face_counters)
         break
 
     # Grab a single frame of video
@@ -112,6 +115,7 @@ while True:
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 print(known_face_counters)
+print(face_nam)
 print(detect)
 # print(round((detect/len(known_face_counters))*0.07))
 # Release handle to the webcam
@@ -124,12 +128,13 @@ cur = conn.cursor()
 
 cur.executescript(
     """
-CREATE TABLE "attendance" (
+CREATE TABLE IF NOT EXISTS "attendance" (
 	"student_name"	varchar(100) NOT NULL,
 	"attendance_status"	INTEGER NOT NULL,
 	"dattime"	datetime NOT NULL
 )
 """
 )
-for i in known_face_counters:
-    pass
+for i in face_nam:
+    if i.keys() == face_nam[i+1] == face_nam[i+2]:
+        print(i.keys())

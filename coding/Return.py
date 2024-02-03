@@ -74,7 +74,7 @@ class Return():
             mydb = sqlite3.connect('database.sqlite')
             mycursor = mydb.cursor()
             mycursor.execute('select * from issued_books where book_id = ("{}")'.format(bookid))
-            info = mycursor.fetchone()
+            info = mycursor.fetchall()
             print(info)
             date = datetime.today().strftime('%Y-%m-%d')
             if(len(info) > 0):
