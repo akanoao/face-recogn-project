@@ -1,5 +1,7 @@
 import sqlite3
 import time
+import datetime
+import pytz
 import face_recognition
 import cv2
 import numpy as np
@@ -29,12 +31,16 @@ known_face_names = [
 # Initialize some variables
 known_face_counters = {}
 # detect = 0
-attendance_dict = {}
+# attendance_dict = {}
+present_list = []
+# absent_list = []
 face_locat = []
 face_encodings = []
 face_nam = []
 process_this_frame = True
 intial_time = time.time()
+TIME_ZONE = pytz.timezone('Asia/Kolkata')
+start_time = datetime.datetime.now().astimezone(TIME_ZONE).strftime("%Y-%m-%d %H:%M:%S")
 DURATION = 30 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
 DETECTION_TIME = 5
 HALF_TIME = (DURATION//2)+DETECTION_TIME
@@ -108,26 +114,32 @@ while True:
     # Hit 'q' on the keyboard to quit!
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
-# print(known_face_counters)
-print(face_nam)
-print(detect)
-# print(round((detect/len(known_face_counters))*0.07))
+
+# print(face_nam)
+# print(detect)
+
 # Release handle to the webcam
 video_capture.release()
 cv2.destroyAllWindows()
+end_time = datetime.datetime.now().astimezone(TIME_ZONE).strftime("%Y-%m-%d %H:%M:%S")
+print(start_time, end_time, end="\n")
+# MOYE MOYE MOYE MOYE MOYE MOYE MOYE MOYE MOYE MOYE MOYE
+# for j in range(len(face_nam)):
+#     for i in face_nam[j].keys():
+#         if i in face_nam[(j+1)%3] and face_nam[(j+2)%3]:
+#             attendance_dict[i] = 1
+#         else:
+#             attendance_dict[i] = 0
 
-for j in range(len(face_nam)):
-    for i in face_nam[j].keys():
-        if i in face_nam[(j+1)%3] and face_nam[(j+2)%3]:
-            attendance_dict[i] = 1
-        else:
-            attendance_dict[i] = 0
-
-print(attendance_dict)
-
+for i in face_nam[0].keys():
+    if i in face_nam[1] and face_nam[2]:
+        present_list.append(i)
+# for i in known_face_names:
+#     if i not in present_list:
+#         absent_list.append(i)
 
 # name status date time
-conn = sqlite3.connect("database.sqlite")
+conn = sqlite3.connect("attendance_database.sqlite")
 cur = conn.cursor()
 
 cur.executescript(
@@ -135,12 +147,19 @@ cur.executescript(
 CREATE TABLE IF NOT EXISTS "attendance" (
 	"student_name"	varchar(100) NOT NULL,
 	"attendance_status"	INTEGER NOT NULL,
-	"dattime"	datetime NOT NULL
+	"start_time"	datetime NOT NULL,
+	"end_time"	datetime NOT NULL
 )
 """
 )
-# for i in known_face_names:
-#         cur.execute(
-#             """INSERT OR IGNORE INTO attendance VALUES(?,?,?,?)""",
-#             (song_names[i], artist_names[i], played_at_list[i], timestamps[i]),
-#         )
+for i in known_face_names:
+    if i in present_list:
+        cur.execute(
+            """INSERT INTO attendance VALUES(?,?,?,?)""",
+            (i, "1", start_time, end_time),
+        )
+    else:
+        cur.execute(
+            """INSERT INTO attendance VALUES(?,?,?,?)""",
+            (i, "0", start_time, end_time),
+        )
