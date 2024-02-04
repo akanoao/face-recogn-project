@@ -4,11 +4,12 @@ from tkinter.messagebox import showerror, showwarning, showinfo
 import sqlite3
 import mysql.connector as sql
 
-class options():
+class notebook():
     def window(self):
         root_opt = tk.Tk()
+        root_opt.resizable(False, False)
         root_opt.title("option")
-        window_width = 300
+        window_width = 400
         window_height = 125
 
         screen_width = root_opt.winfo_screenwidth()
@@ -19,15 +20,16 @@ class options():
 
         root_opt.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
+        notebook = ttk.Notebook(root_opt)
+        notebook.pack(pady=10, expand=True, anchor = tk.NW, fill = tk.BOTH)
+
         from issue_return import issuereturn
-        libbutton = ttk.Button(root_opt, text='library', command=lambda: [root_opt.destroy(),issuereturn.window(self)])
-        libbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
+        frame1 = issuereturn.window(self, notebook, root_opt)
+        frame1.pack(fill='both', expand=True)
+        notebook.add(frame1, text='library')
 
         from attendance import attendance
-        facebutton = ttk.Button(root_opt, text='attendance', command=lambda: [root_opt.destroy(), attendance.window(self)])
-        facebutton.pack(padx=10, pady=5, anchor=tk.CENTER)
-
-        secbutton = ttk.Button(root_opt, text='security', command=lambda: [])
-        secbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
-
+        frame2 = attendance.window(self, notebook, root_opt)
+        frame2.pack(fill='both', expand = True)
+        notebook.add(frame2, text='attendance')
         root_opt.mainloop()

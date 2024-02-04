@@ -8,8 +8,8 @@ class issue():
     def window(self):
         root_issue = tk.Tk()
         root_issue.title("issue")
-        window_width = 300
-        window_height = 130
+        window_width = 400
+        window_height = 300
 
         screen_width = root_issue.winfo_screenwidth()
         screen_height = root_issue.winfo_screenheight()
@@ -19,37 +19,50 @@ class issue():
 
         root_issue.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
+
+
+
         root_issue.columnconfigure(0, weight = 1)
         root_issue.columnconfigure(1, weight=1)
         root_issue.columnconfigure(2, weight=1)
 
-        name_label = ttk.Label(root_issue, text="Name: ")
+        lf1 = ttk.LabelFrame(root_issue, text='attendance')
+        lf1.grid(column=0, row=0, padx=15, pady=30)
+
+        name_label = ttk.Label(lf1, text="Name: ")
         name_label.grid(column = 0, row = 0, sticky = tk.W, padx = 5, pady = 10)
 
-        self.name = tk.Text(root_issue, height=1, width=20)
+        self.name = tk.Text(lf1, height=1, width=20)
         self.name.grid(column=1, row=0, sticky=tk.W, padx=5, pady=10)
         self.name["state"] = 'disabled'
 
-        name_button = ttk.Button(root_issue, text="Scan", command=lambda: [issue.facescan(self)])
+        name_button = ttk.Button(lf1, text="Scan", command=lambda: [issue.facescan(self)])
         name_button.grid(column=2, row=0, sticky=tk.W, padx=5, pady=10)
 
-        id_label = ttk.Label(root_issue, text="Book ID: ")
+        id_label = ttk.Label(lf1, text="Book ID: ")
         id_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=10)
 
-        self.id = tk.Text(root_issue, height = 1, width= 20)
+        self.id = tk.Text(lf1, height = 1, width= 20)
         self.id.grid(column=1, row=1, sticky=tk.W, padx=5, pady=10)
         self.id["state"] = 'disabled'
 
-        id_button = ttk.Button(root_issue, text="Scan", command=lambda: [issue.idscan(self)])
+        id_button = ttk.Button(lf1, text="Scan", command=lambda: [issue.idscan(self)])
         id_button.grid(column=2, row=1, sticky=tk.W, padx=5, pady=10)
 
         from issue_return import issuereturn
-        ok_button = ttk.Button(root_issue, text="Ok", command=lambda:[issue.addtodatabase(self), root_issue.destroy(), issuereturn.window(self)])
+        ok_button = ttk.Button(lf1, text="Ok", command=lambda:[issue.addtodatabase(self), root_issue.destroy(), issuereturn.window(self)])
         ok_button.grid(column=2, row=2, sticky=tk.W, padx=5, pady=10)
 
-        from issue_return import issuereturn
-        back_button = ttk.Button(root_issue, text="back", command=lambda: [root_issue.destroy(), issuereturn.window(self)])
+        from notebook import notebook
+        back_button = ttk.Button(lf1, text="back", command=lambda: [root_issue.destroy(), notebook.window(self)])
         back_button.grid(column=0, row=2, sticky=tk.W, padx=5, pady=10)
+
+        lf2 = ttk.LabelFrame(root_issue, text='display')
+        lf2.grid(column=0, row=1, padx=15, pady=30, sticky = tk.W)
+
+        from issue_show import issue_show
+        dis_button = ttk.Button(lf2, text="display", command=lambda: [root_issue.destroy(), issue_show.window(self)])
+        dis_button.grid(column=0, row=0, sticky=tk.W, padx=5, pady=10)
         root_issue.mainloop()
 
     def idscan(self):
@@ -84,3 +97,5 @@ class issue():
             mydb.close()
         except:
             showerror("error", "error")
+
+

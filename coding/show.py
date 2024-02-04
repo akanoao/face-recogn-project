@@ -10,8 +10,8 @@ class show():
         root_att = tk.Tk()
         root_att.resizable(False, True)
         root_att.title("show")
-        window_width = 400
-        window_height = 200
+        window_width = 825
+        window_height = 300
 
         screen_width = root_att.winfo_screenwidth()
         screen_height = root_att.winfo_screenheight()
@@ -21,46 +21,24 @@ class show():
 
         root_att.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
-        lf = ttk.LabelFrame(root_att, text='attendance')
-        lf.grid(column=0, row=0, padx=15, pady=30)
+        columns = ('name', 'status', 'start_time', 'end_time')
+        tree = ttk.Treeview(root_att, columns=columns, show='headings')
+        tree.heading('name', text='Student Name')
+        tree.heading('status', text='P/A')
+        tree.heading('start_time', text='Start Time')
+        tree.heading('end_time', text='End Time')
+        infos = show.get(self)
+        for info in infos:
+            tree.insert('', tk.END, values=info)
 
+        tree.grid(row=0, column=0, padx=10, pady=10)
 
-        amount = show.get(self)
-        i = 0
-        name = ttk.Label(lf, text='NAME')
-        name.grid(column=0, row=0, padx=10, pady=5)
+        scrollbar = ttk.Scrollbar(root_att, orient=tk.VERTICAL, command=tree.yview)
+        tree.configure(yscroll=scrollbar.set)
+        scrollbar.grid(row=0, column=1, sticky='ns')
 
-        att = ttk.Label(lf, text='P/A')
-        att.grid(column=1, row=0, padx=10, pady=5)
-
-        times = ttk.Label(lf, text='Starting Time')
-        times.grid(column=2, row=0, padx=10, pady=5)
-
-        timee = ttk.Label(lf, text='Ending Time')
-        timee.grid(column=3, row=0, padx=10, pady=5)
-
-        while(i < amount):
-            root_att.columnconfigure(i, weight=1)
-
-            att = ttk.Label(lf, text= self.info[i][0])
-            att.grid(column = 0, row = i+1, padx=10, pady=5)
-
-
-            attlabel = ttk.Label(lf, text = self.info[i][1])
-            attlabel.grid(column = 1, row = i+1, padx=10, pady=5)
-
-            timeslabel = ttk.Label(lf, text = self.info[i][2])
-            timeslabel.grid(column = 2, row = i+1, padx=10, pady=5)
-
-
-            timeelabel = ttk.Label(lf, text = self.info[i][3])
-            timeelabel.grid(column = 3, row = i+1, padx=10, pady=5)
-
-            i += 1
-
-        from attendance import attendance
-        button = ttk.Button(lf, text='back', command=lambda: [root_att.destroy(), attendance.window(self)])
-        button.grid(column=3, row=i+1, padx=10, pady=5)
+        from notebook import notebook
+        ttk.Button(root_att, text='back',command=lambda: [root_att.destroy(), notebook.window(self)]).grid(row=1, column=0, sticky=tk.E, padx=10, pady=10)
         root_att.mainloop()
 
     def get(self):
@@ -68,7 +46,7 @@ class show():
             mydb = sqlite3.connect('attendance_database.sqlite')
             mycursor = mydb.cursor()
             mycursor.execute('select * from attendance')
-            self.info = mycursor.fetchall()
-            return len(self.info)
+            info = mycursor.fetchall()
+            return info
         except:
             showerror("error", "error")

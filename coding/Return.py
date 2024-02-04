@@ -8,8 +8,8 @@ class Return():
     def window(self):
         root_return = tk.Tk()
         root_return.title("return")
-        window_width = 300
-        window_height = 130
+        window_width = 400
+        window_height = 300
 
         screen_width = root_return.winfo_screenwidth()
         screen_height = root_return.winfo_screenheight()
@@ -23,33 +23,44 @@ class Return():
         root_return.columnconfigure(1, weight=1)
         root_return.columnconfigure(2, weight=1)
 
-        name_label = ttk.Label(root_return, text="Name: ")
+        lf1 = ttk.LabelFrame(root_return, text='attendance')
+        lf1.grid(column=0, row=0, padx=15, pady=30)
+
+        name_label = ttk.Label(lf1, text="Name: ")
         name_label.grid(column = 0, row = 0, sticky = tk.W, padx = 5, pady = 10)
 
-        self.name = tk.Text(root_return, height=1, width=20)
+        self.name = tk.Text(lf1, height=1, width=20)
         self.name.grid(column=1, row=0, sticky=tk.W, padx=5, pady=10)
         self.name["state"] = 'disabled'
 
-        name_button = ttk.Button(root_return, text="Scan", command=lambda: [Return.facescan(self)])
+        name_button = ttk.Button(lf1, text="Scan", command=lambda: [Return.facescan(self)])
         name_button.grid(column=2, row=0, sticky=tk.W, padx=5, pady=10)
 
-        id_label = ttk.Label(root_return, text="Book ID: ")
+        id_label = ttk.Label(lf1, text="Book ID: ")
         id_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=10)
 
-        self.id = tk.Text(root_return, height = 1, width= 20)
+        self.id = tk.Text(lf1, height = 1, width= 20)
         self.id.grid(column=1, row=1, sticky=tk.W, padx=5, pady=10)
         self.id["state"] = 'disabled'
 
-        id_button = ttk.Button(root_return, text="Scan", command=lambda: [Return.idscan(self)])
+        id_button = ttk.Button(lf1, text="Scan", command=lambda: [Return.idscan(self)])
         id_button.grid(column=2, row=1, sticky=tk.W, padx=5, pady=10)
 
         from issue_return import issuereturn
-        ok_button = ttk.Button(root_return, text="Ok", command=lambda:[Return.addtodatabase(self), root_return.destroy(), issuereturn.window(self)])
+        ok_button = ttk.Button(lf1, text="Ok", command=lambda:[Return.addtodatabase(self), root_return.destroy(), issuereturn.window(self)])
         ok_button.grid(column=2, row=2, sticky=tk.W, padx=5, pady=10)
 
-        from issue_return import issuereturn
-        back_button = ttk.Button(root_return, text="back", command=lambda: [root_return.destroy(), issuereturn.window(self)])
+        from notebook import notebook
+        back_button = ttk.Button(lf1, text="back", command=lambda: [root_return.destroy(), notebook.window(self)])
         back_button.grid(column=0, row=2, sticky=tk.W, padx=5, pady=10)
+
+        lf2 = ttk.LabelFrame(root_return, text='display')
+        lf2.grid(column=0, row=1, padx=15, pady=30, sticky = tk.W)
+
+        from return_show import return_show
+        dis_button = ttk.Button(lf2, text="display", command=lambda: [root_return.destroy(), return_show.window(self)])
+        dis_button.grid(column=0, row=0, sticky=tk.W, padx=5, pady=10)
+
         root_return.mainloop()
 
     def idscan(self):

@@ -14,32 +14,17 @@ import datetime
 # Get a reference to webcam #0 (the default one)
 class attendance():
 
-    def window(self):
-        root_att = tk.Tk()
-        root_att.title("attendance")
-        window_width = 300
-        window_height = 125
+    def window(self, notebook, window):
 
-        screen_width = root_att.winfo_screenwidth()
-        screen_height = root_att.winfo_screenheight()
-
-        center_x = int(screen_width / 2 - window_width / 2)
-        center_y = int(screen_height / 2 - window_height / 2)
-
-        root_att.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
-
-        scanbutton = ttk.Button(root_att, text='scan', command=lambda: [attendance.attendance(self)])
+        frame = ttk.Frame(notebook, width=400, height=280)
+        scanbutton = ttk.Button(frame, text='scan', command=lambda: [attendance.attendance(self)])
         scanbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
         from show import show
-        showbutton = ttk.Button(root_att, text='show', command=lambda: [root_att.destroy(), show.window(self)])
+        showbutton = ttk.Button(frame, text='show', command=lambda: [window.destroy(), show.window(self)])
         showbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
 
-        from options import options
-        backbutton = ttk.Button(root_att, text='back', command=lambda: [root_att.destroy(), options.window(self)])
-        backbutton.pack(padx=10, pady=5, anchor=tk.CENTER)
-
-        root_att.mainloop()
+        return frame
 
     def attendance(self):
         import pytz

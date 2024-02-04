@@ -52,9 +52,9 @@ class gui_main():
                 showerror("error", "id not found")
             elif(len(info) > 0):
                 if(info[0][1] == password):
-                    from options import options
+                    from notebook import notebook
                     self.root.destroy()
-                    options.window(self)
+                    notebook.window(self)
                 else:
                     showerror("error", "password is wrong")
             mydb.commit()
