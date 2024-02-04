@@ -8,6 +8,7 @@ import sqlite3
 import tkcalendar as tkc
 
 class add_student():
+    #test test
     def window(self, notebook, window):
 
         frame = ttk.Frame(notebook, width=400, height=280)
