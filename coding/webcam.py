@@ -21,12 +21,10 @@ class facrecognition():
 
         # Create arrays of known face encodings and their names
         known_face_encodings = [
-            #obama_face_encoding,
-            #biden_face_encoding,
+
         ]
         known_face_names = [
-            #"Daksh Gakhar",
-            #"harsh"
+
         ]
 
         dir = "../images"
