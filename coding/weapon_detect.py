@@ -13,7 +13,7 @@ while True:
     ret, frame = camera.read()
     if frame is None:
         break
-    frame = imutils.resize(frame, width=1000)
+    frame = imutils.resize(frame, width=500)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gun = gun_cascade.detectMultiScale(gray, 1.3, 20, minSize=(100, 100))
     if len(gun) > 0:
