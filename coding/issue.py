@@ -53,13 +53,15 @@ class issue():
         ok_button = ttk.Button(lf1, text="Ok", command=lambda:[issue.addtodatabase(self), root_issue.destroy(), notebook.window(self)])
         ok_button.grid(column=2, row=2, sticky=tk.W, padx=5, pady=10)
 
+
         back_button = ttk.Button(lf1, text="back", command=lambda: [root_issue.destroy(), notebook.window(self)])
         back_button.grid(column=0, row=2, sticky=tk.W, padx=5, pady=10)
 
         lf2 = ttk.LabelFrame(root_issue, text='display')
         lf2.grid(column=0, row=1, padx=15, pady=30, sticky = tk.W)
 
-        dis_button = ttk.Button(lf2, text="display", command=lambda: [root_issue.destroy(), notebook.window(self)])
+        from issue_show import issue_show
+        dis_button = ttk.Button(lf2, text="display", command=lambda: [root_issue.destroy(), issue_show.window(self)])
         dis_button.grid(column=0, row=0, sticky=tk.W, padx=5, pady=10)
         root_issue.mainloop()
 
