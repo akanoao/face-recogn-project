@@ -43,25 +43,25 @@ class gui_main():
     def check(self):
         username = self.username.get()
         password = self.password.get()
-        try:
-            mydb = sqlite3.connect('database.sqlite')
-            mycursor = mydb.cursor()
-            mycursor.execute('select * from login where id = ("{}")'.format(username))
-            info = mycursor.fetchall()
-            if(len(info) == 0):
-                showerror("error", "id not found")
-            elif(len(info) > 0):
-                if(info[0][1] == password):
-                    from notebook import notebook
-                    self.root.destroy()
-                    notebook.window(self)
-                else:
-                    showerror("error", "password is wrong")
-            mydb.commit()
-            mydb.close()
+        #try:
+        mydb = sqlite3.connect('database.sqlite')
+        mycursor = mydb.cursor()
+        mycursor.execute('select * from login where id = ("{}")'.format(username))
+        info = mycursor.fetchall()
+        if(len(info) == 0):
+            showerror("error", "id not found")
+        elif(len(info) > 0):
+            if(info[0][1] == password):
+                from notebook import notebook
+                self.root.destroy()
+                notebook.window(self)
+            else:
+                showerror("error", "password is wrong")
+        mydb.commit()
+        mydb.close()
 
-        except:
-            showerror("error", "error")
+        #except:
+            #showerror("error", "error")
 
 
 

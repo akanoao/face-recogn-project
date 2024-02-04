@@ -1,26 +1,23 @@
+from tkinter import *
 import tkinter as tk
-from tkinter import ttk
+from tkinter import filedialog
 
-# root window
-root = tk.Tk()
-root.geometry('400x300')
-root.title('Notebook Demo')
+# Create an instance of tkinter window
+win = Tk()
 
-# create a notebook
-notebook = ttk.Notebook(root)
-notebook.pack(pady=10, expand=True)
+# Define the geometry of the window
+win.geometry("700x500")
 
-# create frames
-frame1 = ttk.Frame(notebook, width=400, height=280)
-frame2 = ttk.Frame(notebook, width=400, height=280)
+frame = Frame(win, width=600, height=400)
+frame.pack()
+frame.place(anchor='center', relx=0.5, rely=0.5)
 
-frame1.pack(fill='both', expand=True)
-frame2.pack(fill='both', expand=True)
+# Create an object of tkinter ImageTk
+filepath = filedialog.askopenfilename(initialdir='E:\\python projects\\hackathon\\pythonProject', title='select image')
+pic = tk.PhotoImage(file=filepath)
 
-# add frames to notebook
+# Create a Label Widget to display the text or Image
+label = Label(frame, image = pic)
+label.pack()
 
-notebook.add(frame1, text='General Information')
-notebook.add(frame2, text='Profile')
-
-
-root.mainloop()
+win.mainloop()
