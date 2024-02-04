@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -33,8 +34,8 @@ class add_student():
         image_select = tk.Button(frame, text="select", command=lambda: [add_student.select(self)])
         image_select.grid(column = 2, row = 2, sticky = tk.W, padx = 5, pady = 5)
 
-        add_button = tk.Button(frame, text="select", command=lambda: [add_student.add(self)])
-        add_button.grid(column=2, row=2, sticky=tk.W, padx=5, pady=5)
+        add_button = tk.Button(frame, text="Add", command=lambda: [add_student.add(self)])
+        add_button.grid(column=0, row=3, sticky=tk.W, padx=5, pady=5)
 
         return frame
 
@@ -45,5 +46,6 @@ class add_student():
         self.image_show.insert('1.0', fname[-1])
 
     def add(self):
-        im = Image.open(self.filepath)
-        im.save(f'E:/python projects/hackathon/pythonProject/images/{self.name.get()}.jpg')
+        if os.path.isfile(f'E:/python projects/hackathon/pythonProject/images/{self.name.get()}.jpg') == False:
+            im = Image.open(self.filepath)
+            im.save(f'E:/python projects/hackathon/pythonProject/images/{self.name.get()}.jpg')
