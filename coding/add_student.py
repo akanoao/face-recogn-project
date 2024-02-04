@@ -46,6 +46,6 @@ class add_student():
         self.image_show.insert('1.0', fname[-1])
 
     def add(self):
-        if os.path.isfile(f'E:/python projects/hackathon/pythonProject/images/{self.name.get()}.jpg') == False:
+        if os.path.isfile(f'../images/{self.name.get()}.jpg') == False:
             im = Image.open(self.filepath)
-            im.save(f'E:/python projects/hackathon/pythonProject/images/{self.name.get()}.jpg')
+            im.save(f'../images/{self.name.get()}.jpg')
