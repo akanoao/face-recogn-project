@@ -9,7 +9,7 @@ class options():
         root_opt = tk.Tk()
         root_opt.title("option")
         window_width = 300
-        window_height = 100
+        window_height = 125
 
         screen_width = root_opt.winfo_screenwidth()
         screen_height = root_opt.winfo_screenheight()

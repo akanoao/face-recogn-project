@@ -8,7 +8,7 @@ from tkinter import ttk
 from tkinter.messagebox import showerror, showwarning, showinfo
 import sqlite3
 import datetime
-import pytz
+
 
 
 # Get a reference to webcam #0 (the default one)
@@ -18,7 +18,7 @@ class attendance():
         root_att = tk.Tk()
         root_att.title("attendance")
         window_width = 300
-        window_height = 150
+        window_height = 125
 
         screen_width = root_att.winfo_screenwidth()
         screen_height = root_att.winfo_screenheight()
@@ -42,6 +42,7 @@ class attendance():
         root_att.mainloop()
 
     def attendance(self):
+        import pytz
         import face_recognition
         video_capture = cv2.VideoCapture(0)
 

@@ -8,8 +8,9 @@ import sqlite3
 class show():
     def window(self):
         root_att = tk.Tk()
+        root_att.resizable(False, True)
         root_att.title("show")
-        window_width = 600
+        window_width = 400
         window_height = 200
 
         screen_width = root_att.winfo_screenwidth()
@@ -20,31 +21,45 @@ class show():
 
         root_att.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
 
+        lf = ttk.LabelFrame(root_att, text='attendance')
+        lf.grid(column=0, row=0, padx=15, pady=30)
 
 
         amount = show.get(self)
         i = 0
+        name = ttk.Label(lf, text='NAME')
+        name.grid(column=0, row=0, padx=10, pady=5)
+
+        att = ttk.Label(lf, text='P/A')
+        att.grid(column=1, row=0, padx=10, pady=5)
+
+        times = ttk.Label(lf, text='Starting Time')
+        times.grid(column=2, row=0, padx=10, pady=5)
+
+        timee = ttk.Label(lf, text='Ending Time')
+        timee.grid(column=3, row=0, padx=10, pady=5)
+
         while(i < amount):
             root_att.columnconfigure(i, weight=1)
 
-            namelabel = ttk.Label(root_att, text= self.info[i][0])
-            namelabel.grid(column = 0, row = i, padx=10, pady=5)
+            att = ttk.Label(lf, text= self.info[i][0])
+            att.grid(column = 0, row = i+1, padx=10, pady=5)
 
 
-            attlabel = ttk.Label(root_att, text = self.info[i][1])
-            attlabel.grid(column = 1, row = i, padx=10, pady=5)
+            attlabel = ttk.Label(lf, text = self.info[i][1])
+            attlabel.grid(column = 1, row = i+1, padx=10, pady=5)
 
-            timeslabel = ttk.Label(root_att, text = self.info[i][2])
-            timeslabel.grid(column = 2, row = i, padx=10, pady=5)
+            timeslabel = ttk.Label(lf, text = self.info[i][2])
+            timeslabel.grid(column = 2, row = i+1, padx=10, pady=5)
 
 
-            timeelabel = ttk.Label(root_att, text = self.info[i][3])
-            timeelabel.grid(column = 3, row = i, padx=10, pady=5)
+            timeelabel = ttk.Label(lf, text = self.info[i][3])
+            timeelabel.grid(column = 3, row = i+1, padx=10, pady=5)
 
             i += 1
 
         from attendance import attendance
-        button = ttk.Button(root_att, text='back', command=lambda: [root_att.destroy(), attendance.window(self)])
+        button = ttk.Button(lf, text='back', command=lambda: [root_att.destroy(), attendance.window(self)])
         button.grid(column=3, row=i+1, padx=10, pady=5)
         root_att.mainloop()
 

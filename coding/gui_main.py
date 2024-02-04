@@ -48,7 +48,6 @@ class gui_main():
             mycursor = mydb.cursor()
             mycursor.execute('select * from login where id = ("{}")'.format(username))
             info = mycursor.fetchall()
-            print(info)
             if(len(info) == 0):
                 showerror("error", "id not found")
             elif(len(info) > 0):
