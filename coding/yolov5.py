@@ -6,11 +6,8 @@ from PyQt5.uic import loadUi
 from PyQt5.QtCore import QThread, Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QImage, QPixmap
 
-
-changePixmap = pyqtSignal(QImage)
-
 # Runs the detection model, evaluates detections and draws boxes around detected objects
-def run(self):
+def run():
 
     # Loads Yolov4
     net = cv2.dnn.readNet("yolov4.weights", "yolov4.cfg")
@@ -27,13 +24,13 @@ def run(self):
     font = cv2.FONT_HERSHEY_PLAIN
     starting_time = time.time() - 11
 
-    self.running = True
+    running = True
 
     # Starts camera
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(0)
 
     # Detection while loop
-    while self.running:
+    while running:
         ret, frame = cap.read()
         if ret:
 
@@ -88,17 +85,18 @@ def run(self):
                     #Save detected frame every 10 seconds
                     if elapsed_time <= -10:
                         starting_time = time.time()
-                        self.save_detection(frame)
+                        save_detection(frame)
             
             # Showing final result
             rgbImage = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             bytesPerLine = channels * width
             convertToQtFormat = QImage(rgbImage.data, width, height, bytesPerLine, QImage.Format_RGB888)
             p = convertToQtFormat.scaled(854, 480, Qt.KeepAspectRatio)
-            self.changePixmap.emit(p)
 
 # Saves detected frame as a .jpg within the saved_alert folder
 def save_detection(self, frame):
     cv2.imwrite("saved_frame/frame.jpg", frame)
     print('Frame Saved')
     self.post_detection()
+
+run()

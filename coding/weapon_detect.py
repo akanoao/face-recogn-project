@@ -26,7 +26,7 @@ while True:
         firstFrame = gray
         continue
     cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S %p"),
-    (10, frame.shape[0] - 10),cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 255), 2)
+    (10, frame.shape[0] - 10),cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 255), 1)
     
     # print("Guns detected")
     cv2.imshow("pic",frame)
