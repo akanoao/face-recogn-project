@@ -46,11 +46,10 @@ class Return():
         id_button = ttk.Button(lf1, text="Scan", command=lambda: [Return.idscan(self)])
         id_button.grid(column=2, row=1, sticky=tk.W, padx=5, pady=10)
 
-        from issue_return import issuereturn
-        ok_button = ttk.Button(lf1, text="Ok", command=lambda:[Return.addtodatabase(self), root_return.destroy(), issuereturn.window(self)])
+        from notebook import notebook
+        ok_button = ttk.Button(lf1, text="Ok", command=lambda:[Return.addtodatabase(self), root_return.destroy(), notebook.window(self)])
         ok_button.grid(column=2, row=2, sticky=tk.W, padx=5, pady=10)
 
-        from notebook import notebook
         back_button = ttk.Button(lf1, text="back", command=lambda: [root_return.destroy(), notebook.window(self)])
         back_button.grid(column=0, row=2, sticky=tk.W, padx=5, pady=10)
 
