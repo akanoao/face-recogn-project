@@ -9,7 +9,6 @@ import tkcalendar as tkc
 class add_student():
     def window(self, notebook, window):
 
-
         frame = ttk.Frame(notebook, width=400, height=280)
 
         self.name_label = ttk.Label(frame, text="Student Name:")

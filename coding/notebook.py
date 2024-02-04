@@ -34,11 +34,14 @@ class notebook():
         notebookv.add(frame2, text='attendance')
 
         from add_student import add_student
-
         frame3 = add_student.window(self, notebookv, root_opt)
         frame3.pack(fill='both', expand=True)
-
         notebookv.add(frame3, text='Add Student')
+
+        from security import security
+        frame4 = security.window(self, notebookv, root_opt)
+        frame4.pack(fill='both', expand=True)
+        notebookv.add(frame4, text='Security')
         root_opt.mainloop()
 
 

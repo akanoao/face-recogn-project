@@ -26,7 +26,7 @@ class issue():
         root_issue.columnconfigure(1, weight=1)
         root_issue.columnconfigure(2, weight=1)
 
-        lf1 = ttk.LabelFrame(root_issue, text='attendance')
+        lf1 = ttk.LabelFrame(root_issue, text='Issue')
         lf1.grid(column=0, row=0, padx=15, pady=30)
 
         name_label = ttk.Label(lf1, text="Name: ")

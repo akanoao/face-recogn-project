@@ -23,7 +23,7 @@ class Return():
         root_return.columnconfigure(1, weight=1)
         root_return.columnconfigure(2, weight=1)
 
-        lf1 = ttk.LabelFrame(root_return, text='attendance')
+        lf1 = ttk.LabelFrame(root_return, text='Return')
         lf1.grid(column=0, row=0, padx=15, pady=30)
 
         name_label = ttk.Label(lf1, text="Name: ")
