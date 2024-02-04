@@ -3,12 +3,10 @@ import numpy as np
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
-
-#@markdown We implemented some functions to visualize the object detection results. <br/> Run the following cell to activate the functions.
 import cv2
 
-MARGIN = 10  # pixels
-ROW_SIZE = 10  # pixels
+MARGIN = 20  # pixels
+ROW_SIZE = 20  # pixels
 FONT_SIZE = 1
 FONT_THICKNESS = 1
 TEXT_COLOR = (255, 0, 0)  # red
@@ -50,7 +48,7 @@ options = vision.ObjectDetectorOptions(base_options=base_options,
 detector = vision.ObjectDetector.create_from_options(options)
 
 # STEP 3: Load the input image.
-image = mp.Image.create_from_file("download.jpg")
+image = mp.Image.create_from_file("../images/download.jpg")
 
 # STEP 4: Detect objects in the input image.
 detection_result = detector.detect(image)
@@ -59,5 +57,8 @@ detection_result = detector.detect(image)
 image_copy = np.copy(image.numpy_view())
 annotated_image = visualize(image_copy, detection_result)
 rgb_annotated_image = cv2.cvtColor(annotated_image, cv2.COLOR_BGR2RGB)
-cv2.imshow("hs",rgb_annotated_image)
-cv2.waitKey(3000)
+while True:
+  cv2.imshow("hs",rgb_annotated_image)
+  if cv2.waitKey(1) & 0xFF == ord('q'):
+    break
+# cv2.waitKey(10000)
