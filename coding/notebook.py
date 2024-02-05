@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import filedialog
 from tkinter.messagebox import showerror, showwarning, showinfo
 import sqlite3
-import mysql.connector as sql
+
 
 class notebook():
     def window(self):
