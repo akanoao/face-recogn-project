@@ -13,7 +13,7 @@ while True:
     ret, frame = camera.read()
     if frame is None:
         break
-    frame = imutils.resize(frame, width=1000)
+    frame = imutils.resize(frame, width=500)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gun = gun_cascade.detectMultiScale(gray, 1.3, 20, minSize=(100, 100))
     if len(gun) > 0:
@@ -26,7 +26,7 @@ while True:
         firstFrame = gray
         continue
     cv2.putText(frame, datetime.datetime.now().strftime("%A %d %B %Y %I:%M:%S %p"),
-    (10, frame.shape[0] - 10),cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 255), 2)
+    (10, frame.shape[0] - 10),cv2.FONT_HERSHEY_SIMPLEX,0.35, (0, 255, 255), 1)
     
     # print("Guns detected")
     cv2.imshow("pic",frame)

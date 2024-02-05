@@ -12,10 +12,7 @@ FONT_THICKNESS = 1
 TEXT_COLOR = (255, 0, 0)  # red
 
 
-def visualize(
-    image,
-    detection_result
-) -> np.ndarray:
+def visualize(image,detection_result) -> np.ndarray:
   """Draws bounding boxes on the input image and return it.
   Args:
     image: The input RGB image.
@@ -44,11 +41,11 @@ def visualize(
 # STEP 2: Create an ObjectDetector object.
 base_options = python.BaseOptions(model_asset_path='efficientdet_lite0.tflite')
 options = vision.ObjectDetectorOptions(base_options=base_options,
-                                       score_threshold=0.5)
+                                       score_threshold=0.6)
 detector = vision.ObjectDetector.create_from_options(options)
 
 # STEP 3: Load the input image.
-image = mp.Image.create_from_file("../images/download.jpg")
+image = mp.Image.create_from_file("../images/download1q.jpg")
 
 # STEP 4: Detect objects in the input image.
 detection_result = detector.detect(image)
