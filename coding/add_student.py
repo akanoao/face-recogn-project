@@ -2,7 +2,7 @@ import os
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
-from PIL import Image
+from PIL import Image                   
 from tkinter.messagebox import showerror, showwarning, showinfo
 import sqlite3
 import tkcalendar as tkc
@@ -23,7 +23,8 @@ class add_student():
         Studentid_label = ttk.Label(frame, text="Student ID:")
         Studentid_label.grid(column=0, row=1, sticky=tk.W, padx=5, pady=5)
 
-        studentid_entry = ttk.Entry(frame)
+        self.id = tk.StringVar()
+        studentid_entry = ttk.Entry(frame, textvariable=self.id)
         studentid_entry.grid(column=1, row=1, sticky=tk.E, padx=5, pady=5)
 
         image_label = ttk.Label(frame, text="Student Image:")
@@ -35,7 +36,7 @@ class add_student():
         image_select = tk.Button(frame, text="select", command=lambda: [add_student.select(self)])
         image_select.grid(column = 2, row = 2, sticky = tk.W, padx = 5, pady = 5)
 
-        add_button = tk.Button(frame, text="Add", command=lambda: [add_student.add(self)])
+        add_button = tk.Button(frame, text="Add", command=lambda: [add_student.add(self), studentid_entry.delete(0, tk.END), self.name_entry.delete(0, tk.END), self.image_show.delete(0, tk.END)])
         add_button.grid(column=0, row=3, sticky=tk.W, padx=5, pady=5)
 
         return frame
