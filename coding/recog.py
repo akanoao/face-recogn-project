@@ -14,4 +14,4 @@ results = face_recognition.compare_faces(my_pic_encoding, unknown_pic_encoding,t
 print(results)
 
 if True in results:
-    print("daksh is present")
+    print("ayush is present")
