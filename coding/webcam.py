@@ -8,6 +8,8 @@ class facrecognition():
     def facerecognition(self):
     # Get a reference to webcam #0 (the default one)
         video_capture = cv2.VideoCapture(0)
+        # video_capture.set(3,1920)
+        # video_capture.set(4, 1080)
 
         # Load a sample picture and learn how to recognize it.
         #obama_image = face_recognition.load_image_file("../images/indv1.jpeg")
@@ -29,7 +31,7 @@ class facrecognition():
 
         dir = "../images"
         for file in os.listdir(dir):
-            name_image = face_recognition.load_image_file(f'..images/{file}')
+            name_image = face_recognition.load_image_file(f'../images/{file}')
             name_face_encoding = face_recognition.face_encodings(name_image)[0]
             known_face_encodings.append(name_face_encoding)
             f = file.split('.')
