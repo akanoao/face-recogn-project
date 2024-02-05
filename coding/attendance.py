@@ -42,7 +42,7 @@ class attendance():
 
         dir = "../images"
         for file in os.listdir(dir):
-            name_image = face_recognition.load_image_file(f'..images/{file}')
+            name_image = face_recognition.load_image_file(f'../images/{file}')
             name_face_encoding = face_recognition.face_encodings(name_image)[0]
             known_face_encodings.append(name_face_encoding)
             f = file.split('.')
@@ -61,8 +61,8 @@ class attendance():
         intial_time = time.time()
         TIME_ZONE = pytz.timezone('Asia/Kolkata')
         start_time = datetime.datetime.now().astimezone(TIME_ZONE).strftime("%Y-%m-%d %H:%M:%S")
-        DURATION = 30 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
-        DETECTION_TIME = 5
+        DURATION = 50 # ex - for 2min or 120 sec put 100sec coz 20 sec is taken for detection
+        DETECTION_TIME = 10
         HALF_TIME = (DURATION//2)+DETECTION_TIME
         DELAY_TIME = (int(DURATION//2)-DETECTION_TIME)*1000 # 5 10 5 10 5
 
