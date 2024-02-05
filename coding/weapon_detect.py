@@ -2,6 +2,8 @@ import numpy as np
 import cv2
 import imutils
 import datetime
+from playsound import playsound
+import time
 
 gun_cascade = cv2.CascadeClassifier('cascade.xml')
 camera = cv2.VideoCapture(0)
@@ -18,6 +20,13 @@ while True:
     gun = gun_cascade.detectMultiScale(gray, 1.3, 20, minSize=(100, 100))
     if len(gun) > 0:
         gun_exist = True
+        playsound('siren.mp3', block=False)
+        
+        # try:
+        #     playsound("siren.mp3",block="False")
+        #     time.sleep(2)
+        # except:
+        #     pass
     for (x, y, w, h) in gun:
         frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 0, 255), 3)
         roi_gray = gray[y:y + h, x:x + w]
